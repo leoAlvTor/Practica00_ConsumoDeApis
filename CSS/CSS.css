@@ -2,6 +2,8 @@ body {
     font-family: Arial, sans-serif;
     margin-left: 5%;
     margin-right: 5%;
+    margin-bottom: 10%;
+    padding: 10px 10px 60px;
 }
 
 * {
@@ -33,12 +35,9 @@ form.example button:hover{
 }
 
 footer{
-    position: absolute;
-    bottom: 5%;
-    height: 2.5rem;
-    width: 70%;
+    margin-top: 5%;
+    width:80%;
 
-    margin-left: auto;
 }
 
 footer > input{
@@ -54,4 +53,27 @@ footer > input{
 
 footer > input:hover{
     background: rgb(41, 87, 243);
+}
+
+#peliculas {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+#peliculas td, #peliculas th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+#peliculas tr:nth-child(even){background-color: #f2f2f2;}
+
+#peliculas tr:hover {background-color: #ddd;}
+
+#peliculas th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #4CAF50;
+    color: white;
 }

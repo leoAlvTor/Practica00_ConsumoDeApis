@@ -2,19 +2,24 @@ var search = [];
 var searchPagination = [];
 
 async function getPeliculasID(){
+    alert('LLAMADO');
     let id = document.getElementById('txtIMBD').value;
     let url = 'https://www.omdbapi.com/?apikey=533bb6&i='+id;
     getPeliculas(url);
+
 }
 
 async function getPeliculasNombre(){
     let nombre = document.getElementById('txtNombre').value.split(' ').join('+');
     let url = 'https://www.omdbapi.com/?apikey=533bb6&s='+nombre;
-    getPeliculas(url);
+    await getPeliculas(url);
+    lstXButton(0);
 }
 
 async function getPeliculas(url){
+    alert('LLAMADO 2');
     const data = await fetchPeliculas(url);
+
     search = [];
     let tmpArray = [];
     searchPagination = [];
@@ -31,7 +36,6 @@ async function getPeliculas(url){
             search.push(data.Search[i]);
         }
     }
-    alert(searchPagination.length + '<-->' + search.length);
     if(searchPagination.length >= 1 && search.length > 0){
        createFooter(searchPagination.length+1);
     }else if(searchPagination.length >=1 && search.length === 0){
@@ -51,13 +55,12 @@ function createFooter(length){
 
 async function fetchPeliculas(url) {
     const response = await fetch(url);
+    console.log(response);
+
     return response.json();
 }
 
 function cargarTabla(datos) {
-    for (let i = 0; i < datos.length; i++) {
-        alert(datos[i].Title);
-    }
 
     let table ="<tr>\n" +
         "<th>TITULO</th>\n" +
@@ -68,7 +71,10 @@ function cargarTabla(datos) {
         "</tr>";
 
     for (let i = 0; i < datos.length; i++) {
-        if(datos[i].Poster)
+        console.log(datos[i].Poster);
+        if(datos[i].Poster == "N/A"){
+            datos[i].Poster = 'https://www.zhibit.org/image/463008a3-03bc8586ca-42f0c202-s-9/Reflections-1.jpg';
+        }
         table =table+ "<tr>" +
             "<td>"+ datos[i].Title +"</td>" +
             "<td>"+ datos[i].Year +"</td>" +
@@ -83,7 +89,6 @@ function cargarTabla(datos) {
 
 function lstXButton(id){
     document.getElementById('peliculas').innerHTML = "";
-    alert(search[0].length);
     if(id >= searchPagination.length){
         cargarTabla(search[0]);
     }else if(id < searchPagination.length){
