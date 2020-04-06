@@ -2,27 +2,26 @@ var search = [];
 var searchPagination = [];
 
 async function getPeliculasID(){
-    alert('LLAMADO');
     let id = document.getElementById('txtIMBD').value;
     let url = 'https://www.omdbapi.com/?apikey=533bb6&i='+id;
-    getPeliculas(url);
-
+    hacerPeticionAjax(url, getPeliculas, lstXButton);
 }
 
 async function getPeliculasNombre(){
     let nombre = document.getElementById('txtNombre').value.split(' ').join('+');
     let url = 'https://www.omdbapi.com/?apikey=533bb6&s='+nombre;
-    await getPeliculas(url);
-    lstXButton(0);
+    hacerPeticionAjax(url, getPeliculas, lstXButton);
 }
 
-async function getPeliculas(url){
-    alert('LLAMADO 2');
-    const data = await fetchPeliculas(url);
-
+function getPeliculas(data){
     search = [];
     let tmpArray = [];
     searchPagination = [];
+
+    if(data.Title !== null){
+
+    }
+
     if(data.Search.length > 5){
         for (let i = 0, j=data.Search.length; i < j; i+=5) {
             tmpArray = data.Search.slice(i, i+5);
@@ -36,13 +35,12 @@ async function getPeliculas(url){
             search.push(data.Search[i]);
         }
     }
+
     if(searchPagination.length >= 1 && search.length > 0){
        createFooter(searchPagination.length+1);
     }else if(searchPagination.length >=1 && search.length === 0){
         createFooter(searchPagination.length)
     }
-
-
 }
 
 function createFooter(length){
@@ -53,15 +51,24 @@ function createFooter(length){
     document.getElementById('footer').innerHTML = html;
 }
 
-async function fetchPeliculas(url) {
-    const response = await fetch(url);
-    console.log(response);
-
-    return response.json();
+function hacerPeticionAjax(url, callback, callback2){
+    let ajax = new XMLHttpRequest();
+    ajax.open('GET', url, true);
+    ajax.send();
+    ajax.onreadystatechange = function () {
+        if(ajax.readyState === 4 && ajax.status === 200){
+            console.log("AJAX DONE Suchesfuly :v ");
+            let response = ajax.responseText;
+            let responseJSON = JSON.parse(response);
+            callback(responseJSON);
+            callback2(0);
+        }
+    };
+    console.log("Request sent suchesfulys ajio ajio");
 }
 
-function cargarTabla(datos) {
 
+function cargarTabla(datos) {
     let table ="<tr>\n" +
         "<th>TITULO</th>\n" +
         "<th>AÑO</th>\n" +
