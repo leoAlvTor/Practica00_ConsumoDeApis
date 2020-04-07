@@ -14,7 +14,6 @@ async function getPeliculasNombre(){
 }
 
 function getPeliculas(data){
-    console.log(data);
     document.getElementById('footer').innerHTML = "";
     search = [];
     let tmpArray = [];
@@ -60,14 +59,12 @@ function hacerPeticionAjax(url, callback, callback2){
     ajax.send();
     ajax.onreadystatechange = function () {
         if(ajax.readyState === 4 && ajax.status === 200){
-            console.log("AJAX DONE Suchesfuly :v ");
             let response = ajax.responseText;
             let responseJSON = JSON.parse(response);
             callback(responseJSON);
             callback2(0);
         }
     };
-    console.log("Request sent suchesfulys ajio ajio");
 }
 
 
@@ -83,8 +80,12 @@ function cargarTabla(datos) {
         for (let j = 0; j < keys.length; j++) {
             if(keys[j] == "Ratings")
             {
-                let ratings = JSON.parse(dt[keys[j]]);
-
+                let ratings = dt[keys[j]];
+                values = [];
+                for (let k = 0; k < ratings.length; k++) {
+                    values.push("->" + ratings[i].Source + '<->' + ratings[i].Value + "<-");
+                }
+                table += "<td>"+ values.toString() +"</td>";
             }
             else if(keys[j] == "Poster"){
                 table += "<td><img alt='img' src="+ dt[keys[j]] +"></td>"
@@ -94,7 +95,6 @@ function cargarTabla(datos) {
 
         }
         table = table + "</tr>";
-        console.log(table);
     }
     document.getElementById('peliculas').innerHTML = table;
 }
