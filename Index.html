@@ -6,6 +6,9 @@
     <script src="JavaScript/ObtenerPeliculas.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="CSS/CSS.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 
 <body>
@@ -15,13 +18,11 @@
     <input id="txtNombre" type="text" placeholder="Busqueda Por Nombre" name="search">
     <button onclick="getPeliculasNombre()"><i class="fa fa-search"></i></button><br>
 </form>
-<form class="example" onsubmit="return false">
-    <input id="txtIMBD" type="text" placeholder="Busqueda Por ID IMBD" name="search">
-    <button onclick="getPeliculasID()"><i class="fa fa-search"></i></button>
-</form>
+<div class="div_container">
+    <table id="peliculas" class="">
 
-<table id="peliculas">
-</table>
+    </table>
+</div>
 
 </body>
 <footer id="footer">
