@@ -18,7 +18,7 @@ function getPeliculas(data){
     search = [];
     let tmpArray = [];
     searchPagination = [];
-
+    console.log(data);
     if(data.Title === undefined){
         if(data.Search.length > 5){
             for (let i = 0, j=data.Search.length; i < j; i+=5) {
@@ -42,7 +42,6 @@ function getPeliculas(data){
         search.push(data);
         cargarTabla(search);
     }
-
 }
 
 function createFooter(length){
@@ -87,8 +86,13 @@ function cargarTabla(datos) {
                 }
                 table += "<td>"+ values.toString() +"</td>";
             }
-            else if(keys[j] == "Poster"){
-                table += "<td><img alt='img' src="+ dt[keys[j]] +"></td>"
+            else if(keys[j] == "Poster" ){
+                console.log(dt[keys[j]] + "<----------------------");
+                if(dt[keys[j]] === "N/A"){
+                    console.log("HOLA!");
+                    table += "<td><img alt='img' src=https://www.octoparse.com/images/404_logo.gif></td>";
+                }else
+                    table += "<td><img alt='img' src="+ dt[keys[j]] +"></td>";
             }else{
                 table += "<td>"+ dt[keys[j]] +"</td>";
             }
