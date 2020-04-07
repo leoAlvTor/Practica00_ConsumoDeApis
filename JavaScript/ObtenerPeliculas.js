@@ -4,7 +4,7 @@ var searchPagination = [];
 async function getPeliculasID(){
     let id = document.getElementById('txtIMBD').value;
     let url = 'https://www.omdbapi.com/?apikey=533bb6&i='+id;
-    hacerPeticionAjax(url, getPeliculas, lstXButton);
+    hacerPeticionAjax(url, getPeliculas, 'NULL');
 }
 
 async function getPeliculasNombre(){
@@ -14,33 +14,36 @@ async function getPeliculasNombre(){
 }
 
 function getPeliculas(data){
+    console.log(data);
+    document.getElementById('footer').innerHTML = "";
     search = [];
     let tmpArray = [];
     searchPagination = [];
 
-    if(data.Title !== null){
-
-    }
-
-    if(data.Search.length > 5){
-        for (let i = 0, j=data.Search.length; i < j; i+=5) {
-            tmpArray = data.Search.slice(i, i+5);
-            if(tmpArray.length >= 5)
-                searchPagination.push(tmpArray);
-            else
-                search.push(tmpArray);
+    if(data.Title === undefined){
+        if(data.Search.length > 5){
+            for (let i = 0, j=data.Search.length; i < j; i+=5) {
+                tmpArray = data.Search.slice(i, i+5);
+                if(tmpArray.length >= 5)
+                    searchPagination.push(tmpArray);
+                else
+                    search.push(tmpArray);
+            }
+        }else{
+            for (let i = 0; i < data.Search.length; i++) {
+                search.push(data.Search[i]);
+            }
+        }
+        if(searchPagination.length >= 1 && search.length > 0){
+            createFooter(searchPagination.length+1);
+        }else if(searchPagination.length >=1 && search.length === 0){
+            createFooter(searchPagination.length)
         }
     }else{
-        for (let i = 0; i < data.Search.length; i++) {
-            search.push(data.Search[i]);
-        }
+        search.push(data);
+        cargarTabla(search);
     }
 
-    if(searchPagination.length >= 1 && search.length > 0){
-       createFooter(searchPagination.length+1);
-    }else if(searchPagination.length >=1 && search.length === 0){
-        createFooter(searchPagination.length)
-    }
 }
 
 function createFooter(length){
@@ -69,33 +72,36 @@ function hacerPeticionAjax(url, callback, callback2){
 
 
 function cargarTabla(datos) {
-    let table ="<tr>\n" +
-        "<th>TITULO</th>\n" +
-        "<th>AÑO</th>\n" +
-        "<th>imbdID</th>\n" +
-        "<th>TIPO</th>\n" +
-        "<th>POSTER</th>\n" +
-        "</tr>";
-
-    for (let i = 0; i < datos.length; i++) {
-        console.log(datos[i].Poster);
-        if(datos[i].Poster == "N/A"){
-            datos[i].Poster = 'https://www.zhibit.org/image/463008a3-03bc8586ca-42f0c202-s-9/Reflections-1.jpg';
-        }
-        table =table+ "<tr>" +
-            "<td>"+ datos[i].Title +"</td>" +
-            "<td>"+ datos[i].Year +"</td>" +
-            "<td>"+ datos[i].imdbID +"</td>" +
-            "<td>"+ datos[i].Type +"</td>" +
-            "<td><img alt='img' src="+ datos[i].Poster +"></td>" +
-            "</tr>";
+    let keys = Object.keys(datos[0]);
+    let table = "";
+    for (let i = 0; i < keys.length; i++) {
+        table += "<th>"+ keys[i] +"</th>";
     }
+    for (let i = 0; i < datos.length; i++) {
+        let dt = datos[i];
+        table = table + "<tr>";
+        for (let j = 0; j < keys.length; j++) {
+            if(keys[j] == "Ratings")
+            {
+                let ratings = JSON.parse(dt[keys[j]]);
 
+            }
+            else if(keys[j] == "Poster"){
+                table += "<td><img alt='img' src="+ dt[keys[j]] +"></td>"
+            }else{
+                table += "<td>"+ dt[keys[j]] +"</td>";
+            }
+
+        }
+        table = table + "</tr>";
+        console.log(table);
+    }
     document.getElementById('peliculas').innerHTML = table;
 }
 
 function lstXButton(id){
     document.getElementById('peliculas').innerHTML = "";
+
     if(id >= searchPagination.length){
         cargarTabla(search[0]);
     }else if(id < searchPagination.length){
