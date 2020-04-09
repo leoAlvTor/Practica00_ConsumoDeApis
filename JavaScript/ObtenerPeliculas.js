@@ -13,7 +13,6 @@ function getPeliculasID(id) {
     document.getElementById('mi_body').style.backgroundImage = 'none';
 }
 
-
 function getPeliculasNombre() {
     document.getElementById('mi_body').style.backgroundImage = "url('https://thumbs.gfycat.com/KindlyWickedHoki-size_restricted.gif')";
     document.getElementById('footer').style="visibility: visible";
@@ -26,8 +25,13 @@ function getPeliculasNombre() {
 
 function getPeliculasNombPagina(pagina) {
     pagina_actual = pagina;
-    let url = 'https://www.omdbapi.com/?apikey=533bb6&s=' + nombre + '&page=' + pagina;
-    hacerPeticionAjax(url, getPeliculas);
+    if(pagina_actual > paginas){
+        createModal("Error", "Ha intentado abrir un número de página que no existe, existen "+ paginas + " páginas disponibles \n" +
+            "por favor ingrese un valor valido.");
+    }else {
+        let url = 'https://www.omdbapi.com/?apikey=533bb6&s=' + nombre + '&page=' + pagina;
+        hacerPeticionAjax(url, getPeliculas);
+    }
 }
 
 function createModal(titulo, mensaje){
