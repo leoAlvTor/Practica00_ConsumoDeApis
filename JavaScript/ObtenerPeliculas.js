@@ -1,57 +1,70 @@
 var search = [];
 var searchPagination = [];
+var nombre = "";
+var nombre_original = "";
+var paginas = 0;
+var pagina_actual = 1;
+var bandera = null;
 
 function getPeliculasID(id) {
-    alert(id);
     let url = 'https://www.omdbapi.com/?apikey=533bb6&i=' + id;
-    hacerPeticionAjax(url, getPeliculas, 'NULL');
+    hacerPeticionAjax(url, getPeliculas);
 }
 
+
 function getPeliculasNombre() {
-    let nombre = document.getElementById('txtNombre').value.split(' ').join('+');
-    let url = 'https://www.omdbapi.com/?apikey=533bb6&s=' + nombre;
-    hacerPeticionAjax(url, getPeliculas, lstXButton);
+    bandera = false;
+    nombre_original = document.getElementById('txtNombre').value;
+    nombre = nombre_original.split(' ').join('+');
+    let url = 'https://www.omdbapi.com/?apikey=533bb6&s=' + nombre + '&page=' + 1;
+    hacerPeticionAjax(url, getPeliculas);
+}
+
+function getPeliculasNombPagina(pagina) {
+    pagina_actual = pagina;
+    let url = 'https://www.omdbapi.com/?apikey=533bb6&s=' + nombre + '&page=' + pagina;
+    hacerPeticionAjax(url, getPeliculas);
+}
+
+function createModal(titulo, mensaje){
+    document.getElementById('nombre_pelicula').innerText = titulo;
+    document.getElementById('cantidad_peliculas').innerText = mensaje;
+    $('#myModal').modal();
 }
 
 function getPeliculas(data) {
-    document.getElementById('footer').innerHTML = "";
-    search = [];
-    let tmpArray = [];
-    searchPagination = [];
-    if (data.Title === undefined) {
-        if (data.Search.length > 5) {
-            for (let i = 0, j = data.Search.length; i < j; i += 5) {
-                tmpArray = data.Search.slice(i, i + 5);
-                if (tmpArray.length >= 5)
-                    searchPagination.push(tmpArray);
-                else
-                    search.push(tmpArray);
-            }
-        } else {
+    if (data.Response == "True") {
+        let resultados = parseInt(data.totalResults);
+        paginas = Math.ceil(resultados / 10);
+        if(!bandera)
+            createModal(nombre_original, "Se han obtenido "+ resultados + " resultados" +
+            " y se han creado " + paginas + " paginas.");
+        bandera=true;
+        if (resultados > 10) {
+            createFooter(paginas);
+        }
+        search = [];
+        if (data.Title === undefined) {
             for (let i = 0; i < data.Search.length; i++) {
                 search.push(data.Search[i]);
             }
+        } else {
+            search.push(data);
+            cargarTabla(search);
         }
-        if (searchPagination.length >= 1 && search.length > 0) {
-            createFooter(searchPagination.length + 1);
-        } else if (searchPagination.length >= 1 && search.length === 0) {
-            createFooter(searchPagination.length)
-        }
-    } else {
-        search.push(data);
         cargarTabla(search);
+    } else {
+        createModal("ERROR", "Se ha producido un error al buscar la pelicula," +
+            " por favor verifica que el nombre sea correcto.");
     }
 }
 
 function createFooter(length) {
-    let html = "";
-    for (let i = 0; i < length; i++) {
-        html = html + "<input type='button' onclick='lstXButton(this.id)' id=" + i + " value='Página-" + i + "'>";
-    }
-    document.getElementById('footer').innerHTML = html;
+
+
 }
 
-function hacerPeticionAjax(url, callback, callback2) {
+function hacerPeticionAjax(url, callback) {
     let ajax = new XMLHttpRequest();
     ajax.open('GET', url, true);
     ajax.send();
@@ -60,7 +73,6 @@ function hacerPeticionAjax(url, callback, callback2) {
             let response = ajax.responseText;
             let responseJSON = JSON.parse(response);
             callback(responseJSON);
-            callback2(0);
         }
     };
 }
@@ -77,7 +89,6 @@ function cargarTabla(datos) {
     for (let i = 0; i < keys.length; i++) {
         table += "<th>" + keys[i] + "</th>";
     }
-    console.log(table + '<---');
     for (let i = 0; i < datos.length; i++) {
         let dt = datos[i];
         table = table + "<tr>";
@@ -105,12 +116,41 @@ function cargarTabla(datos) {
     document.getElementById('peliculas').innerHTML = table;
 }
 
-function lstXButton(id) {
-    document.getElementById('peliculas').innerHTML = "";
+function cargarUltimoIndex() {
+    getPeliculasNombPagina(paginas);
+}
 
-    if (id >= searchPagination.length) {
-        cargarTabla(search[0]);
-    } else if (id < searchPagination.length) {
-        cargarTabla(searchPagination[id])
+function regresarUnaPelicula() {
+    if (actualizarBotones(1) === 0) {
+        pagina_actual = parseInt(pagina_actual) - 1;
+        getPeliculasNombPagina(pagina_actual);
     }
+}
+
+function aumentarUnaPelicula() {
+    if (actualizarBotones(2) === 0) {
+        pagina_actual = parseInt(pagina_actual) + 1;
+        getPeliculasNombPagina(pagina_actual);
+    }
+}
+
+function actualizarBotones(btn) {
+    scroll(0, 0);
+    document.getElementById('btn_avanzar').disabled = false;
+    document.getElementById('btn_regresar').disabled = false;
+    if (pagina_actual === 1 && btn === 1) {
+        document.getElementById('btn_regresar').disabled = true;
+        alert("Ya esta en la primera pagina");
+        return 1; //ERROR En caso de que se quiera regresar y ya este en el inicio
+    } else if (pagina_actual === paginas && btn === 2) {
+        document.getElementById('btn_avanzar').disabled = true;
+        alert("Ya esta en la ultima pagina");
+        return 2; //ERROR En caso de que se quiera avanzar y ya este en el final;
+    } else {
+        return 0; // No pasa nada :v
+    }
+}
+
+function makeModal(txt) {
+
 }

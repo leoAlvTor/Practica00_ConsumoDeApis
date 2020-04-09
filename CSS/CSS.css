@@ -1,7 +1,5 @@
 
 body {
-    background: #555555;
-    background-color: #555555;
     font-family: Arial, sans-serif;
     margin-left: 5%;
     margin-right: 5%;
@@ -37,26 +35,7 @@ form.example button:hover{
     background: rgb(41, 87, 243);
 }
 
-footer{
-    margin-left: auto;
-    margin-top: 5%;
-    width:80%;
-}
 
-input[type=button]{
-    margin-right: 2%;
-    background-color: #2196F3;
-    border: none;
-    color: white;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    font-size: 16px;
-}
-
-input:hover{
-    background: rgb(41, 87, 243);
-}
 
 #peliculas {
     font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
@@ -73,7 +52,7 @@ input:hover{
     -webkit-filter: blur(30%);
 }
 
-#peliculas tr:nth-child(even){background-color: #f2f2f2;}
+#peliculas tr {background-color: #f2f2f2;}
 
 #peliculas tr:hover {background-color: #ddd;}
 
@@ -130,3 +109,10 @@ input:hover{
     -moz-transition: 0.5s ease;
 }
 
+
+
+@import url('//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css');
+@import url('//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-theme.min.css');
+
+body {margin: 10px;}
+.pagination {width: 1%;}

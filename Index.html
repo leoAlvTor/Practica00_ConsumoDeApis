@@ -9,23 +9,75 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/TypewriterJS/1.0.0/typewriter.min.js"></script>
+    <script src="JavaScript/placeholderJS.js"></script>
+
 </head>
 
-<body>
+<body style="background-color:#C0C0C0">
+
+<div class="container">
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title" id="nombre_pelicula"></h4>
+                </div>
+                <div class="modal-body">
+                    <p id="cantidad_peliculas"></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar Mensaje</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div id="idMyModal"></div>
 
 <h2>Buscador De Peliculas con OMBD API</h2>
 <form class="example" onsubmit="return false">
-    <input id="txtNombre" type="text" placeholder="Busqueda Por Nombre" name="search">
+    <input id="txtNombre" type="text" name="search">
     <button onclick="getPeliculasNombre()"><i class="fa fa-search"></i></button><br>
 </form>
+
+<script>
+    var placeholderText = [
+        "Que pelicula te gustaria buscar?",
+        "Doctor Strange?",
+        "Superman?",
+        "Terminator?",
+        "Todas estas y muchas mas!"
+    ];
+
+    $('#txtNombre').placeholderTypewriter({text: placeholderText});
+</script>
+
 <div class="div_container">
     <table id="peliculas" class="">
-
     </table>
 </div>
-
 </body>
-<footer id="footer">
 
+<footer id="footer" class="pagination">
+    <div class="container">
+        <div class="input-group pagination">
+            <div class="input-group-btn">
+                <button class="btn btn-default" type="button" onclick="getPeliculasNombPagina('1')">&lt;&lt;</button>
+                <button class="btn btn-default" type="button" id="btn_regresar" onclick="regresarUnaPelicula()">&lt;</button>
+            </div>
+            <div class="input-group-btn">
+                <input class="form-control" type="text" id="idex_seleccionado" style="width: 50px;" value="1">
+            </div>
+            <div class="input-group-btn">
+                <button class="btn btn-primary" type="button" onclick="getPeliculasNombPagina(document.getElementById('idex_seleccionado').value)">Cargar</button>
+                <button class="btn btn-default" type="button" id="btn_avanzar" onclick="aumentarUnaPelicula()">&gt;</button>
+                <button class="btn btn-default" type="button" onclick="cargarUltimoIndex()">&gt;&gt;</button>
+            </div>
+        </div>
+    </div>
 </footer>
 </html>
