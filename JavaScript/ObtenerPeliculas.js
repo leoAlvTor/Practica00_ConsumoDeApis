@@ -40,9 +40,6 @@ function getPeliculas(data) {
             createModal(nombre_original, "Se han obtenido "+ resultados + " resultados" +
             " y se han creado " + paginas + " paginas.");
         bandera=true;
-        if (resultados > 10) {
-            createFooter(paginas);
-        }
         search = [];
         if (data.Title === undefined) {
             for (let i = 0; i < data.Search.length; i++) {
@@ -57,11 +54,7 @@ function getPeliculas(data) {
         createModal("ERROR", "Se ha producido un error al buscar la pelicula," +
             " por favor verifica que el nombre sea correcto.");
     }
-}
-
-function createFooter(length) {
-
-
+    actualizarBotones(-1);
 }
 
 function hacerPeticionAjax(url, callback) {
@@ -149,8 +142,4 @@ function actualizarBotones(btn) {
     } else {
         return 0; // No pasa nada :v
     }
-}
-
-function makeModal(txt) {
-
 }

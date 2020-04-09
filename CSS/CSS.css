@@ -1,14 +1,9 @@
-
 body {
     font-family: Arial, sans-serif;
     margin-left: 5%;
     margin-right: 5%;
     margin-bottom: 10%;
     padding: 10px 10px 60px;
-}
-
-* {
-    box-sizing: border-box;
 }
 
 form.example input[type=text] {
@@ -34,8 +29,6 @@ form.example button {
 form.example button:hover{
     background: rgb(41, 87, 243);
 }
-
-
 
 #peliculas {
     font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
@@ -108,8 +101,6 @@ form.example button:hover{
     -webkit-transition: 0.5s ease;
     -moz-transition: 0.5s ease;
 }
-
-
 
 @import url('//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css');
 @import url('//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-theme.min.css');
