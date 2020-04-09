@@ -9,10 +9,14 @@ var bandera = null;
 function getPeliculasID(id) {
     let url = 'https://www.omdbapi.com/?apikey=533bb6&i=' + id;
     hacerPeticionAjax(url, getPeliculas);
+    document.getElementById('footer').style="visibility: hidden";
+    document.getElementById('mi_body').style.backgroundImage = 'none';
 }
 
 
 function getPeliculasNombre() {
+    document.getElementById('mi_body').style.backgroundImage = "url('https://thumbs.gfycat.com/KindlyWickedHoki-size_restricted.gif')";
+    document.getElementById('footer').style="visibility: visible";
     bandera = false;
     nombre_original = document.getElementById('txtNombre').value;
     nombre = nombre_original.split(' ').join('+');
