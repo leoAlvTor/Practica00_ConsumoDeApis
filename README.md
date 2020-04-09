@@ -52,16 +52,16 @@ Se puede navegar entre paginas de una manera muy fácil a través del footer en 
 
 ![](imgs/image--015.png)
 
-#####Enlace del repositorio en GitHub: https://github.com/leoAlvTor/Practica00_ConsumoDeApis.git
+#### Enlace del repositorio en GitHub: https://github.com/leoAlvTor/Practica00_ConsumoDeApis.git
 
-RESULTADO(S) OBTENIDO(S):Se pudo realizar la practica sin mayor problema, pero todavía existen ciertas dificultades al trabajar con API que no tengan una buena documentación ya que no se puede encontrar soluciones a ciertos problemas como obtener todas las películas con un título, sino que devuelven de 10 en 10, además de no contar con una opción para saber cuántas peticiones quedan disponibles.
+RESULTADO(S) OBTENIDO(S): Se pudo realizar la practica sin mayor problema, pero todavía existen ciertas dificultades al trabajar con API que no tengan una buena documentación ya que no se puede encontrar soluciones a ciertos problemas como obtener todas las películas con un título, sino que devuelven de 10 en 10, además de no contar con una opción para saber cuántas peticiones quedan disponibles.
 
-CONCLUSIONES :Las API son una excelente herramienta que nos facilita la manera en la que nos comunicamos con los servicios de otras paginas web, además de que si son usadas con un patrón arquitectónico correcto no existe una mayor dificultad para manejar la información que se obtiene de las mismas.
+CONCLUSIONES: Las API son una excelente herramienta que nos facilita la manera en la que nos comunicamos con los servicios de otras paginas web, además de que si son usadas con un patrón arquitectónico correcto no existe una mayor dificultad para manejar la información que se obtiene de las mismas.
 
-RECOMENDACIONES :Es recomendable leer la documentación de una API antes de usarla ya que esto nos permite evitar errores que nos pueden llegar a tomar tiempo sin saber que es lo que ocurre, además se debe también tomar en cuenta a los usuarios de la aplicación ya para ellos la aplicación es nueva y debe ser sumamente intuitiva con la finalidad de evitar problemas de funcionamiento. 
+RECOMENDACIONES: Es recomendable leer la documentación de una API antes de usarla ya que esto nos permite evitar errores que nos pueden llegar a tomar tiempo sin saber que es lo que ocurre, además se debe también tomar en cuenta a los usuarios de la aplicación ya para ellos la aplicación es nueva y debe ser sumamente intuitiva con la finalidad de evitar problemas de funcionamiento. 
 
-##### Nombre de estudiante : Leonardo Alvarado Torres**
+##### Nombre de estudiante : Leonardo Alvarado Torres
 
-Firma de estudiante** :
+Firma de estudiante :
  
  ![](imgs/image--017.png)
