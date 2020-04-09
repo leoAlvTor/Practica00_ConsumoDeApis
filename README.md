@@ -1,4 +1,4 @@
-# Practica 0 Web Services y API
+# Practica 0 Web Services y uso de API
 
 #### Identificar gráficamente la arquitectura y el patrón de diseño de la aplicación a desarrollar
 ![](imgs/image--002.jpg)
